@@ -124,8 +124,9 @@ void handleRoot() {
                     
                     // Update bar color based on average value
                     const color = getColor(value);
+                    let diff = (value/1000).toFixed(2);
                     document.getElementById('colorBar').style.backgroundColor = color;
-                    document.getElementById('colorBar').innerText = `Diff = ${(value/1000).toFixed(2)}`
+                    document.getElementById('colorBar').innerText = `Diff = ${diff}`;
                 });
         }
         
