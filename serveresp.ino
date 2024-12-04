@@ -101,14 +101,14 @@ void handleRoot() {
 
     <script>
         const MIN_VALUE = 0;
-        const MAX_VALUE = 100;
+        const MAX_VALUE = 0.1;
 
         function getColor(value) {
             if (isNaN(value) || value < MIN_VALUE || value > MAX_VALUE) {
                 return 'black';
             }
-            const green = 255 - Math.round((value - MIN_VALUE) * 2.55);
-            const red = Math.round((value - MIN_VALUE) * 2.55);
+            const green = 255 - Math.round((value - MIN_VALUE) * (255/MAX_VALUE));
+            const red = Math.round((value - MIN_VALUE) * (255/MAX_VALUE));
             return `rgb(${red}, ${green}, 0)`;
         }
 
@@ -120,11 +120,10 @@ void handleRoot() {
                     document.getElementById('sensor2').innerText = data.sensor2;
                     
                     // Calculate average of both sensors
-                    value = Math.abs((parseFloat(data.sensor1) - parseFloat(data.sensor2)) * 1000);
+                    diff = Math.abs(parseFloat(data.sensor1) - parseFloat(data.sensor2)).toFixed(2);
                     
-                    // Update bar color based on average value
-                    const color = getColor(value);
-                    let diff = (value/1000).toFixed(2);
+                    // Update bar color based on difference
+                    const color = getColor(diff);
                     document.getElementById('colorBar').style.backgroundColor = color;
                     document.getElementById('colorBar').innerText = `Diff = ${diff}`;
                 });
